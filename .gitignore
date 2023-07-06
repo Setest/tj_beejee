@@ -1,0 +1,9 @@
+.env
+.git
+.github
+.gitignore
+.idea
+.vscode
+/cache
+/vendor
+!.gitkeep
