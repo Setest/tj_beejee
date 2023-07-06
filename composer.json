@@ -9,17 +9,36 @@
       "email": "itman116@gmail.com"
     }
   ],
-  "require":     {
+  "require": {
     "php":           ">=8.2.3",
     "ext-ctype":     "*",
     "ext-curl":      "*",
     "ext-iconv":     "*",
-    "ext-simplexml": "*"
+    "ext-simplexml": "*",
+    "symfony/routing": "^6.3",
+    "symfony/yaml": "^6.3",
+    "symfony/config": "^6.3",
+    "psr/http-message": "^2.0",
+    "psr/http-factory": "^1.0",
+    "php-http/discovery": "^1.19",
+    "symfony/http-foundation": "^6.3",
+    "symfony/psr-http-message-bridge": "^2.2",
+    "psr/http-client": "^1.0",
+    "nyholm/psr7": "^1.8"
+  }
+  ,
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
   },
-  "autoload":    {
+  "autoload": {
     "psr-4": {
       "App\\":   "src/",
       "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
     }
   }
 }
