@@ -4,6 +4,6 @@
 .gitignore
 .idea
 .vscode
-/cache
+cache
 /vendor
 !.gitkeep

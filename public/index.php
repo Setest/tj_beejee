@@ -5,11 +5,11 @@ declare(strict_types=1);
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use App\App;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -30,21 +30,9 @@ $router->setContext((new RequestContext())->fromRequest($symfonyRequest));
 $psr17Factory = new Psr17Factory();
 $httpFactory  = new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, $psr17Factory);
 
-try {
-    $handlerMeta = $router->matchRequest($symfonyRequest);
-    
-    /** @var string $controller */
-    $controller = $handlerMeta['_controller'];
-    /** @var string $controller */
-    $action = $handlerMeta['_action'];
-    
-    $symfonyRequest = Symfony\Component\HttpFoundation\Request::createFromGlobals();
-    $request        = $httpFactory->createRequest($symfonyRequest);
-    $response       = (new $controller)->$action($request);
-} catch (ResourceNotFoundException $e) {
-    $response = $psr17Factory->createResponse(404, 'Handler not found');
-} catch (\Throwable $e) {
-    $response = $psr17Factory->createResponse(500, 'Internal server error');
-}
+$symfonyRequest = Symfony\Component\HttpFoundation\Request::createFromGlobals();
+$request        = $httpFactory->createRequest($symfonyRequest);
 
-(new HttpFoundationFactory())->createResponse($response)->send();
+$app = new App($psr17Factory, $symfonyRequest, $router);
+
+(new HttpFoundationFactory())->createResponse($app->handle($request))->send();
