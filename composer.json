@@ -1,5 +1,25 @@
 {
-  "require": {
-    "": "<default>"
+  "name":        "setest/beejee-todolist",
+  "description": "A test task for beejee",
+  "type":        "project",
+  "license":     "MIT License",
+  "authors":     [
+    {
+      "name":  "Stepan Prishepenko",
+      "email": "itman116@gmail.com"
+    }
+  ],
+  "require":     {
+    "php":           ">=8.2.3",
+    "ext-ctype":     "*",
+    "ext-curl":      "*",
+    "ext-iconv":     "*",
+    "ext-simplexml": "*"
+  },
+  "autoload":    {
+    "psr-4": {
+      "App\\":   "src/",
+      "Tests\\": "tests/"
+    }
   }
 }
