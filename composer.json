@@ -27,7 +27,8 @@
     "nyholm/psr7": "^1.8",
     "twig/twig": "^3.6",
     "ext-http": "*",
-    "robmorgan/phinx": "^0.13.4"
+    "robmorgan/phinx": "^0.13.4",
+    "usmanhalalit/pixie": "^2.0"
   }
   ,
   "require-dev": {

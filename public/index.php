@@ -31,5 +31,11 @@ $request        = $httpFactory->createRequest($symfonyRequest);
 
 $debugMode = !!getenv('APP_ENV');
 
+new \Pixie\Connection('sqlite', array(
+    'driver'   => 'sqlite',
+    'database' => getenv('DATABASE_PATH') ?: 'db/data/db.db',
+    'prefix'   => '',
+), 'QB');
+
 $app = new App($psr17Factory, $symfonyRequest, $router, $debugMode);
 (new HttpFoundationFactory())->createResponse($app->handle($request))->send();
