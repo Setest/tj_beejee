@@ -27,6 +27,7 @@
 - [X] add xdebug
 - [X] create base route controller
 - [X] add renderer and home template with assets and bootstrap
+- [ ] add some image in assets just for fun
 - [ ] add db in docker
 - [ ] realize migrations package and base migration
 - [ ] create user model
