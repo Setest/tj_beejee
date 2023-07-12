@@ -31,10 +31,10 @@
 - [ ] add db in docker
 - [ ] realize migrations package and base migration
 - [ ] create user model
+- [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
 - [ ] show users list
 - [ ] add sort feature in users list
 - [ ] add pagination feature in users list
-- [ ] add insert data controller, input data validator and form in home template 
 - [ ] add auth page and auth controller
 - [ ] add session
 - [ ] add logging (with logout)
