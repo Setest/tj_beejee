@@ -3,3 +3,11 @@ index:
   controller: App\Controller\Home
   methods: ['GET']
   defaults: { _action: 'handle' }
+
+foo:
+  path: /foo/{name}
+  controller: App\Controller\FooController
+  methods: ['GET']
+  defaults: { _action: 'handle' }
+  requirements:
+    name: '\w+'
