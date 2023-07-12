@@ -13,10 +13,6 @@ use App\App;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $appRoot = dirname(__DIR__);
 
 $symfonyRequest = Symfony\Component\HttpFoundation\Request::createFromGlobals();
@@ -33,6 +29,7 @@ $httpFactory  = new PsrHttpFactory($psr17Factory, $psr17Factory, $psr17Factory, 
 $symfonyRequest = Symfony\Component\HttpFoundation\Request::createFromGlobals();
 $request        = $httpFactory->createRequest($symfonyRequest);
 
-$app = new App($psr17Factory, $symfonyRequest, $router);
+$debugMode = !!getenv('APP_ENV');
 
+$app = new App($psr17Factory, $symfonyRequest, $router, $debugMode);
 (new HttpFoundationFactory())->createResponse($app->handle($request))->send();

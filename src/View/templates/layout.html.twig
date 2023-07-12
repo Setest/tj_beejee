@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'templates/sections/header.html.twig' %}
+
+<body class="text-center">
+    <div class="p-1 bg-primary text-white text-center">
+        <h1>BeeJee test work</h1>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {% include 'templates/sections/footer.html.twig' %}
+
+</body>
+</html>

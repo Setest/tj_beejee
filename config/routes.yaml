@@ -1,0 +1,5 @@
+index:
+  path: /
+  controller: App\Controller\Home
+  methods: ['GET']
+  defaults: { _action: 'handle' }
