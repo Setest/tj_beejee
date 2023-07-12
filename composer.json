@@ -26,7 +26,8 @@
     "psr/http-client": "^1.0",
     "nyholm/psr7": "^1.8",
     "twig/twig": "^3.6",
-    "ext-http": "*"
+    "ext-http": "*",
+    "robmorgan/phinx": "^0.13.4"
   }
   ,
   "require-dev": {

@@ -28,8 +28,7 @@
 - [X] create base route controller
 - [X] add renderer and home template with assets and bootstrap
 - [X] add some image in assets just for fun
-- [ ] add db in docker
-- [ ] realize migrations package and base migration
+- [X] realize migrations package and base migration
 - [ ] create user model
 - [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
 - [ ] show users list
@@ -42,6 +41,9 @@
 - [ ] write tests
 - [ ] fill readme file
 - [ ] deploy into production
+
+## Links
+* [Phinx SCM](https://book.cakephp.org/phinx/0/en/migrations.html) for DB migrations
 
 ## Code requirements
 

@@ -6,4 +6,5 @@
 .vscode
 cache
 /vendor
+/db/data/*.*
 !.gitkeep

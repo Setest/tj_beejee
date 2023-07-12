@@ -34,7 +34,7 @@ install: pre-install down build up post-install ## Create and start docker hub
 pre-install:
 	@echo --- Pre-install ---
 
-post-install: composer-install composer-dump-env-dev
+post-install: composer-install composer-dump-env-dev m-init
 
 build: ## Build containers
 	${DOCKER_COMPOSE} build
@@ -47,11 +47,24 @@ down stop: ## Stop the docker hub
 ps: ##
 	${DOCKER_COMPOSE} ps
 
-## ——  Working with migrations  ——————————————————————————————————
+## —— 🐝 Working with app 🐝 ——————————————————————————————————
 bash: ## Entering inside docker PHP container
 	${DOCKER_EXEC_APP} bash
 test: ## Run unit tests
 	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phpunit"
+
+## ——  Working with migrations  ——————————————————————————————————
+migrate: ## Rollup all migrations
+	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx migrate"
+c=
+migrate-gen: ## Create migration
+	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx create $(c)"
+
+migrate-down: ## Rollback last migration
+	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx rollback"
+
+migrate-status: ## Show migration status
+	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx status"
 
 ## —— Composer 🧙 ——————————————————————————————————————————————————————————————
 composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
