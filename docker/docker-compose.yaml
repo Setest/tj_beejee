@@ -23,11 +23,15 @@ services:
         environment:
             APP_ENV: dev
             XDEBUG_SESSION: PHPSTORM
-            XDEBUG_MODE: debug
+            XDEBUG_MODE: develop,debug
         volumes:
             - ../:/var/www
             - "/etc/timezone:/etc/timezone:ro"
             - "/etc/localtime:/etc/localtime:ro"
+            - ./php/php.ini:/usr/local/etc/php/php.ini
+            - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+        extra_hosts:
+            - host.docker.internal:${LOCALHOST_IP_ADDRESS}
         networks:
             beejee-network:
 

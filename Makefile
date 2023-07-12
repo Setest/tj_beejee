@@ -11,6 +11,13 @@ PHP_RUNNER:=export PHP_IDE_CONFIG=\"$(PHP_IDE_CONFIG)\" XDEBUG_SESSION=1 && php
 DOCKER_EXEC_APP_PHP = docker exec -it ${PROJECT_NAME}_php bash -c
 COMPOSER = ${DOCKER_EXEC_APP} composer
 
+export LOCALHOST_IP_ADDRESS=$(shell ip addr show | grep "\binet\b.*\bdocker0\b" | awk '{print $$2}' | cut -d '/' -f 1)
+
+ifndef LOCALHOST_IP_ADDRESS
+$(error It seems docker is not started yet, because docker IP is empty, please try restart docker with: sudo systemctl restart docker)
+endif
+
+
 # Misc
 .DEFAULT_GOAL=help
 .PHONY: help install pre-install down build up post-install restart ps test bash
@@ -54,7 +61,9 @@ composer-install: ##
 	$(COMPOSER) install --ignore-platform-reqs \
                         --no-interaction \
                         --no-scripts
-composer-clear-cache: ##
+cc: ##
+	${DOCKER_EXEC_APP} bash -c "rm -rf ./var/cache"
+composer-cc: ##
 	$(COMPOSER) clear-cache
 composer-dump-autoload: ## Update the composer autoloader because of new classes in a classmap package
 	$(COMPOSER) dump-autoload

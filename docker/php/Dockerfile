@@ -11,6 +11,10 @@ RUN apt-get update &&\
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Xdebug
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+
 COPY --from=composer:2.5.4 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
