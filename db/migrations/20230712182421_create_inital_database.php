@@ -14,7 +14,6 @@ final class CreateInitalDatabase extends AbstractMigration
             ->addColumn('done', 'boolean', ['default' => false])
             ->addColumn('created_at', 'datetime')
             ->addColumn('updated_at', 'datetime', ['null' => true])
-            ->addIndex(['username', 'email'], ['unique' => true])
             ->create();
         ;
     }
