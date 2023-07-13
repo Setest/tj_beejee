@@ -28,7 +28,7 @@
     "twig/twig": "^3.6",
     "ext-http": "*",
     "robmorgan/phinx": "^0.13.4",
-    "usmanhalalit/pixie": "^2.0"
+    "catfan/medoo": "^2.1"
   }
   ,
   "require-dev": {
