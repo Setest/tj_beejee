@@ -31,22 +31,25 @@
 - [X] realize migrations package and base migration
 - [X] add DB service
 - [X] create task model
-- [ ] create user model
+- [ ] show tasks list
+- [ ] add sort feature in tasks list, should be remembered in url path
+- [ ] add pagination feature in tasks list
 - [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
-- [ ] show users list
-- [ ] add sort feature in users list
-- [ ] add pagination feature in users list
+- [ ] add new task
+- [ ] create user model
 - [ ] add auth page and auth controller
-- [ ] add session
+- [ ] add session handler
+- [ ] edit task by admin
 - [ ] add logging (with logout)
 - [ ] read base config from envs (app_mode)
 - [ ] write tests
-- [ ] fill readme file
+- [ ] fill readme file (make install)
 - [ ] deploy into production
 
 ## Links
 * [Phinx SCM](https://book.cakephp.org/phinx/0/en/migrations.html) for DB migrations
 * [Medoo DB framework](https://medoo.in/)
+* [Twig](https://twig.symfony.com/)
 
 ## Code requirements
 
