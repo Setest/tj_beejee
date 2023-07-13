@@ -6,15 +6,9 @@ use App\Helper\Db;
 
 abstract class AbstractActiveRecord
 {
-    public static function getTableName(): string
-    {
-        return '';
-    }
+    abstract static public function getTableName(): string;
 
-    public static function getFields(): array
-    {
-        return [];
-    }
+    abstract static public function getFields(): array;
 
     /**
      * @param int $limit
@@ -25,10 +19,10 @@ abstract class AbstractActiveRecord
      */
     public static function findAll(int $limit = 10, int $offset = 0, string $orderField = 'id', string $orderDirection = 'DESC')
     {
-        $orderField = in_array($orderField, self::getFields()) ? $orderField : 'id';
+        $orderField = in_array($orderField, static::getFields()) ? $orderField : 'id';
         $orderDirection = $orderDirection === 'DESC' ? 'DESC' : 'ASC';
 
-        return Db::$connection->select(self::getTableName(), "*", [
+        return Db::$connection->select(static::getTableName(), "*", [
             "ORDER" => [
                 $orderField => $orderDirection,
             ],
