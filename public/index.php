@@ -31,11 +31,14 @@ $request        = $httpFactory->createRequest($symfonyRequest);
 
 $debugMode = !!getenv('APP_ENV');
 
-new \Pixie\Connection('sqlite', array(
-    'driver'   => 'sqlite',
-    'database' => getenv('DATABASE_PATH') ?: 'db/data/db.db',
-    'prefix'   => '',
-), 'QB');
+$database = new \Medoo\Medoo([
+    'type' => 'sqlite',
+    'database' => 'file://' . $appRoot . '/' . (getenv('DATABASE_PATH') ?: 'db/data/db.db') . '?mode=rw',
+]);
+
+// I know its stupid and simple way to create connection with DB, dont blame me )
+\App\Helper\Db::getInstance($database);
+$x = \App\Model\Tasks::doneToggle(10);
 
 $app = new App($psr17Factory, $symfonyRequest, $router, $debugMode);
 (new HttpFoundationFactory())->createResponse($app->handle($request))->send();
