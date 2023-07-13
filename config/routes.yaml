@@ -11,3 +11,13 @@ foo:
   defaults: { _action: 'handle' }
   requirements:
     name: '\w+'
+
+TasksList:
+  path: /tasks/{page}
+  controller: App\Controller\Tasks
+  methods: ['GET']
+  defaults:
+    _action: 'list'
+    page: 1
+  requirements:
+    page: '\d+'

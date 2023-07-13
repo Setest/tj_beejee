@@ -24,6 +24,15 @@ abstract class AbstractController implements BaseController{
     }
 
     public function renderAndReturnResponse(string $name, array $opts = []){
+        $opts = [
+            'currentPage' => $this->request->getRequestTarget(),
+            'pages' => [
+                ['link'=>'/', 'title' => 'Home'],
+                ['link'=>'/tasks', 'title' => 'Tasks'],
+                ['link'=>'/auth', 'title' => 'Login'],
+            ],
+            ...$opts];
+
         $result = $this->render($name, $opts);
 
         return $this->createResponse(200, $result);
