@@ -74,6 +74,7 @@ composer-install: ##
 	$(COMPOSER) install --ignore-platform-reqs \
                         --no-interaction \
                         --no-scripts
+ccd: cc composer-dump-autoload ## Clear cache and recreate autoloader classes
 cc: ##
 	${DOCKER_EXEC_APP} bash -c "rm -rf ./var/cache"
 composer-cc: ##
