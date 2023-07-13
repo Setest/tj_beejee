@@ -29,6 +29,8 @@
 - [X] add renderer and home template with assets and bootstrap
 - [X] add some image in assets just for fun
 - [X] realize migrations package and base migration
+- [X] add DB service
+- [X] create task model
 - [ ] create user model
 - [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
 - [ ] show users list
@@ -44,6 +46,7 @@
 
 ## Links
 * [Phinx SCM](https://book.cakephp.org/phinx/0/en/migrations.html) for DB migrations
+* [Medoo DB framework](https://medoo.in/)
 
 ## Code requirements
 
