@@ -7,7 +7,7 @@ final class CreateInitalDatabase extends AbstractMigration
 {
     public function change(): void
     {
-        $users = $this->table('tasks');
+        $users = $this->table('task');
         $users->addColumn('username', 'string', ['limit' => 100])
             ->addColumn('email', 'string', ['limit' => 100])
             ->addColumn('content', 'text')
