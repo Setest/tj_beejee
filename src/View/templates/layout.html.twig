@@ -3,9 +3,25 @@
 {% include 'templates/sections/header.html.twig' %}
 
 <body class="text-center">
-    <div class="p-1 bg-primary text-white text-center">
+    <div class="p-1 bg-info text-white text-center">
         <h3>BeeJee test work</h3>
         <img class="img-fluid  w-25" src="/assets/logo.webp" alt="" />
+
+{#        {{ _context | json_encode | raw }}#}
+        <nav class="nav nav-tabs justify-content-center">
+
+        {% for key,page in pages %}
+            <li class="nav-item">
+                {% set active = '' %}
+                {% if page.link == currentPage %}
+                    {% set active = 'active' %}
+                {% endif %}
+
+                <a class="nav-link {{ active }}" aria-current="page" href="{{ page.link }}">{{ page.title }}</a>
+            </li>
+        {% endfor %}
+
+        </nav>
     </div>
 
     <div class="container mt-5">
