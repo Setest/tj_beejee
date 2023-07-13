@@ -50,7 +50,39 @@ class App
             $loader = new FilesystemLoader(__DIR__ . '/View');
             $twig = new Environment($loader);
 
-            $response = (new $controller($twig, $request, $this->responseFactory))->$action();
+            $handler = new $controller($twig, $request, $this->responseFactory);
+
+            $reflector = new \ReflectionClass($controller);
+            $method = $reflector->getMethod($action);
+
+            $arguments  = [];
+            $parameters = $method->getParameters();
+            foreach ($parameters as $param) {
+                $name = $param->getName();
+
+                if ($name === '__params') {
+                    $arguments[$name] = $handlerMeta;
+                    continue;
+                }
+
+                if (isset($handlerMeta[$name])) {
+                    if ($type = $param->getType()){
+                        settype($handlerMeta[$name], $type->getName());
+                    }
+
+                    $arguments[$name] = $handlerMeta[$name];
+                    continue;
+                }
+
+                if ($param->isDefaultValueAvailable()) {
+                    $arguments[$name] = $param->getDefaultValue();
+                    continue;
+                }
+
+                throw new \Exception("Argument '{$name}' is not set and have not default value");
+            }
+
+            $response = $method->invokeArgs($handler, $arguments);
         } catch (ResourceNotFoundException) {
             $response = $this->responseFactory->createResponse(404, 'Handler not found');
         } catch (\Throwable) {
