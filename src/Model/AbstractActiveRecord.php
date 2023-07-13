@@ -30,5 +30,11 @@ abstract class AbstractActiveRecord
         ]);
     }
 
+    public static function count()
+    {
+
+        return Db::$connection->count(static::getTableName());
+    }
+
 
 }
