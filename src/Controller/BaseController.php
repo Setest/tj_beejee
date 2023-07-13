@@ -7,6 +7,5 @@ namespace App\Controller;
 
 interface BaseController
 {
-    public function handle(
-    );
+    public function render(string $name, array $opts = []): string;
 }

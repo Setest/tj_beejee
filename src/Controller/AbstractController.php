@@ -13,7 +13,7 @@ abstract class AbstractController implements BaseController{
     {
     }
 
-    private function getRequest(): ServerRequestInterfaceAlias
+    protected function getRequest(): ServerRequestInterfaceAlias
     {
         return $this->request;
     }
