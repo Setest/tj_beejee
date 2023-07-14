@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Model\Task;
-use Psr\Http\Message\MessageInterface;
-use Psr\Http\Message\ResponseInterface;
+use Pagerfanta\Adapter\NullAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\View\TwitterBootstrap5View;
 
 class Tasks extends AbstractController
 {
@@ -14,10 +15,40 @@ class Tasks extends AbstractController
     {
         $offset = $this->getOffsetByPage($page);
         $result = Task::findAll(self::LIMIT, $offset);
-//        var_dump($result);
-        return $this->renderAndReturnResponse('tasks.html.twig', ['tasks'=>$result]);
-    }
+        
+        $total = Task::count();
+        $pagination = $this->pagination($page,  $total, self::LIMIT, '/tasks/%d');
 
+        return $this->renderAndReturnResponse('tasks.html.twig', [
+            'tasks' => $result,
+            'pagination' => $pagination,
+        ]);
+    }
+    
+    /**
+     * Generate rendered pagination
+     *
+     * @param int    $page
+     * @param int    $total
+     * @param int    $limit
+     * @param string $link
+     *
+     * @return string
+     */
+    public function pagination(int $page, int $total, int $limit, string $link): string {
+        $adapter    = new NullAdapter($total);
+        $pagerfanta = new Pagerfanta($adapter);
+        
+        $pagerfanta->setMaxPerPage($limit)->setCurrentPage($page);
+        
+        $view    = new TwitterBootstrap5View();
+        $options = [
+            'css_container_class' => 'pagination justify-content-center',
+        ];
+        
+        return $view->render($pagerfanta, fn($pageNum) => sprintf($link, $pageNum), $options);
+    }
+    
     private function getOffsetByPage(int $page): int
     {
         if ($page <= 1) {

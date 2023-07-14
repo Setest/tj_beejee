@@ -28,7 +28,8 @@
     "twig/twig": "^3.6",
     "ext-http": "*",
     "robmorgan/phinx": "^0.13.4",
-    "catfan/medoo": "^2.1"
+    "catfan/medoo": "^2.1",
+    "pagerfanta/pagerfanta": "^4.2"
   }
   ,
   "require-dev": {

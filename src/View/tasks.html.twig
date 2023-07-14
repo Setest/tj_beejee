@@ -5,47 +5,12 @@
 {% block content %}
 
     <h1>Tasks</h1>
+    {% include 'templates/sections/pagination.html.twig' %}
+
     {% for key,task in tasks %}
-{#        <div class="mb-3">#}
-{#            <label for="exampleFormControlInput1" class="form-label">Name</label>#}
-{#            <input type="" class="form-control" id="exampleFormControlInput1"#}
-{#                   placeholder="name@example.com"#}
-{#                   value="xxx"#}
-{#            >#}
-{#        </div>#}
-
-        <div class="mb-3 row m-0 border border-primary">
-            <label for="staticEmail" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ task.username }}">
-            </div>
-
-            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ task.email }}">
-            </div>
-
-            <label for="staticEmail" class="col-sm-2 col-form-label">Content</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ task.content }}">
-            </div>
-
-            <label for="flexSwitchCheckDefault" class="col-sm-2 col-form-label">Done</label>
-            <div class="col-sm-10 form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            </div>
-        </div>
-
+        {% include 'templates/sections/tasks/task.html.twig' %}
     {% endfor %}
 
-    <nav aria-label="...">
-        <ul class="pagination pagination-sm">
-            <li class="page-item active" aria-current="page">
-                <span class="page-link">1</span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-        </ul>
-    </nav>
+    {% include 'templates/sections/pagination.html.twig' %}
 
 {% endblock %}
