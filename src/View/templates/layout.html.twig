@@ -8,20 +8,7 @@
         <img class="img-fluid  w-25" src="/assets/logo.webp" alt="" />
 
 {#        {{ _context | json_encode | raw }}#}
-        <nav class="nav nav-tabs justify-content-center">
-
-        {% for key,page in pages %}
-            <li class="nav-item">
-                {% set active = '' %}
-                {% if page.link == currentPage %}
-                    {% set active = 'active' %}
-                {% endif %}
-
-                <a class="nav-link {{ active }}" aria-current="page" href="{{ page.link }}">{{ page.title }}</a>
-            </li>
-        {% endfor %}
-
-        </nav>
+        {% include 'templates/sections/nav.html.twig' %}
     </div>
 
     <div class="container mt-5">

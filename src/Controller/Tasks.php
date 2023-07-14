@@ -9,7 +9,7 @@ use Pagerfanta\View\TwitterBootstrap5View;
 
 class Tasks extends AbstractController
 {
-    const LIMIT = 5;
+    const LIMIT = 3;
 
     public function list(int $page)
     {

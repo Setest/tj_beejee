@@ -17,6 +17,12 @@ abstract class AbstractController implements BaseController{
     {
         return $this->request;
     }
+    
+    protected function getBaseUrlPath(){
+        $path = trim($this->request->getRequestTarget(), '/');
+        
+        return explode('/', $path)[0];
+    }
 
     public function render(string $name, array $opts = []): string
     {
@@ -26,12 +32,12 @@ abstract class AbstractController implements BaseController{
     public function renderAndReturnResponse(string $name, array $opts = []){
         $opts = [
             'pagination' => '',
-            'currentPage' => $this->request->getRequestTarget(),
+            'currentPage' => $this->getBaseUrlPath(),
             // TODO get from ENV
             'pages' => [
-                ['link'=>'/', 'title' => 'Home'],
-                ['link'=>'/tasks', 'title' => 'Tasks'],
-                ['link'=>'/auth', 'title' => 'Login'],
+                ['link'=>'', 'title' => 'Home'],
+                ['link'=>'tasks', 'title' => 'Tasks'],
+                ['link'=>'auth', 'title' => 'Login'],
             ],
             ...$opts
         ];

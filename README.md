@@ -31,16 +31,16 @@
 - [X] realize migrations package and base migration
 - [X] add DB service
 - [X] create task model
-- [ ] show tasks list
+- [X] show tasks list
+- [X] add pagination feature in tasks list
 - [ ] add sort feature in tasks list, should be remembered in url path
-- [ ] add pagination feature in tasks list
 - [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
 - [ ] add new task
 - [ ] create user model
 - [ ] add auth page and auth controller
 - [ ] add session handler
 - [ ] edit task by admin
-- [ ] add logging (with logout)
+- [ ] add login (with logout)
 - [ ] read base config from envs (app_mode)
 - [ ] write tests
 - [ ] fill readme file (make install)
