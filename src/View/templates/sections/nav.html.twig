@@ -1,13 +1,12 @@
 <nav class="nav nav-tabs justify-content-center">
-
     {% for key,page in pages %}
         <li class="nav-item">
             {% set active = '' %}
-            {% if page.link == currentPage %}
+            {% if page.active == true %}
                 {% set active = 'active' %}
             {% endif %}
 
-            <a class="nav-link {{ active }}" aria-current="page" href="/{{ page.link }}">{{ page.title }}</a>
+            <a class="nav-link {{ active }}" aria-current="page" href="{{ page.link|raw }}">{{ page.title }}</a>
         </li>
     {% endfor %}
 </nav>

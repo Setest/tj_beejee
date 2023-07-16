@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col">
+        <select id="form-order-sort-field"
+                name="form-order-sort-field"
+                class="form-select"
+                aria-label="Sort field">
+            {% for key,field in sortFields %}
+                {% set active = '' %}
+                {% if order == field %}
+                    {% set active = 'selected' %}
+                {% endif %}
+                <option {{ active }} value="{{ field }}">{{ field }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col">
+        <div class="form-check form-switch text-start">
+            {% set active = '' %}
+            {% set directionName = 'ASC' %}
+            {% if dir == 'DESC' %}
+                {% set active = 'checked' %}
+                {% set directionName = 'DESC' %}
+            {% endif %}
+            <input class="form-check-input" type="checkbox" role="switch" id="form-order-dir" {{ active }}>
+            <label class="form-check-label" for="form-order-dir">{{ directionName }}</label>
+        </div>
+    </div>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const changeSelected = (e) => {
+      const $select = document.getElementById('form-order-sort-field');
+      const $order = document.getElementById('form-order-dir');
+
+      let parsedUrl = new URL(window.location.href);
+      parsedUrl.searchParams.set('order', $select.value)
+      parsedUrl.searchParams.set('dir', $order.checked ? 'DESC' : 'ASC')
+
+      location.replace(parsedUrl.toString())
+    };
+
+    document.getElementById('form-order-sort-field').addEventListener('change', changeSelected);
+    document.getElementById('form-order-dir').addEventListener('click', changeSelected);
+  })
+</script>

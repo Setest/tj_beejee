@@ -46,11 +46,12 @@ class App
             $controller = $handlerMeta['_controller'];
             /** @var string $controller */
             $action = $handlerMeta['_action'];
-
             $loader = new FilesystemLoader(__DIR__ . '/View');
             $twig = new Environment($loader);
 
-            $handler = new $controller($twig, $request, $this->responseFactory);
+            /** @var \App\Controller\BaseController $handler */
+            $handler = new $controller($twig, $request, $this->responseFactory, $this->router);
+            $handler->setRouteHandlerName($handlerMeta['_route']);
 
             $reflector = new \ReflectionClass($controller);
             $method = $reflector->getMethod($action);
@@ -58,6 +59,8 @@ class App
             $arguments  = [];
             $parameters = $method->getParameters();
             foreach ($parameters as $param) {
+                // TODO add DI by interfaces and map
+                
                 $name = $param->getName();
 
                 if ($name === '__params') {

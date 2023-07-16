@@ -8,4 +8,11 @@ namespace App\Controller;
 interface BaseController
 {
     public function render(string $name, array $opts = []): string;
+    
+    public function getRouteHandlerName(): string;
+    
+    /**
+     * @param string $routeHandlerName
+     */
+    public function setRouteHandlerName(string $routeHandlerName);
 }

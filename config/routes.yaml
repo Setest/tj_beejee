@@ -2,22 +2,26 @@ index:
   path: /
   controller: App\Controller\Home
   methods: ['GET']
-  defaults: { _action: 'handle' }
+  defaults:
+    _action: 'handle'
+    title: 'Home'
 
-foo:
-  path: /foo/{name}
-  controller: App\Controller\FooController
-  methods: ['GET']
-  defaults: { _action: 'handle' }
+createTask:
+  path: /tasks
+  controller: App\Controller\Tasks
+  methods: ['POST']
+  defaults: { _action: 'create' }
   requirements:
     name: '\w+'
 
 TasksList:
-  path: /tasks/{page}
+  path:
+    /tasks/page/{page}
   controller: App\Controller\Tasks
   methods: ['GET']
   defaults:
     _action: 'list'
     page: 1
+    title: 'Tasks'
   requirements:
     page: '\d+'

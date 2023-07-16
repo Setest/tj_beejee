@@ -19,8 +19,9 @@ abstract class AbstractActiveRecord
      */
     public static function findAll(int $limit = 10, int $offset = 0, string $orderField = 'id', string $orderDirection = 'DESC')
     {
+        $orderField = strtolower($orderField);
         $orderField = in_array($orderField, static::getFields()) ? $orderField : 'id';
-        $orderDirection = $orderDirection === 'DESC' ? 'DESC' : 'ASC';
+        $orderDirection = strtoupper($orderDirection) === 'DESC' ? 'DESC' : 'ASC';
 
         return Db::$connection->select(static::getTableName(), "*", [
             "ORDER" => [
@@ -29,7 +30,18 @@ abstract class AbstractActiveRecord
             'LIMIT' => [$offset, $limit],
         ]);
     }
-
+    
+    public static function filterOrderFieldByName(string $orderField = 'id'): string
+    {
+        $orderField = strtolower($orderField);
+        return in_array($orderField, static::getFields()) ? $orderField : 'id';
+    }
+    
+    public static function filterOrderDirectionByName(string $orderDirection = 'DESC'): string
+    {
+        return strtoupper($orderDirection) === 'DESC' ? 'DESC' : 'ASC';
+    }
+    
     public static function count()
     {
 

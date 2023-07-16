@@ -5,7 +5,14 @@
 {% block content %}
 
     <h1>Tasks</h1>
-    {% include 'templates/sections/pagination.html.twig' %}
+    <div class="row">
+        <div class="col">
+            {% include 'templates/sections/sort.html.twig' %}
+        </div>
+        <div class="col">
+            {% include 'templates/sections/pagination.html.twig' %}
+        </div>
+    </div>
 
     {% for key,task in tasks %}
         {% include 'templates/sections/tasks/task.html.twig' %}

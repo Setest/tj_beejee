@@ -3,9 +3,6 @@
 namespace App\Controller;
 
 use App\Model\Task;
-use Pagerfanta\Adapter\NullAdapter;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\View\TwitterBootstrap5View;
 
 class Tasks extends AbstractController
 {
@@ -13,40 +10,28 @@ class Tasks extends AbstractController
 
     public function list(int $page)
     {
+        $orderBy = $this->getRequest()->getQueryParams()[self::ORDER_URL_OPTION_NAME] ?? 'id';
+        $orderDirection = $this->getRequest()->getQueryParams()[self::DIRECTION_URL_OPTION_NAME] ?? 'DESC';
+        
+        $orderBy = Task::filterOrderFieldByName($orderBy);
+        $orderDirection = Task::filterOrderDirectionByName($orderDirection);
+        
         $offset = $this->getOffsetByPage($page);
-        $result = Task::findAll(self::LIMIT, $offset);
+        $result = Task::findAll(self::LIMIT, $offset, $orderBy, $orderDirection);
         
         $total = Task::count();
-        $pagination = $this->pagination($page,  $total, self::LIMIT, '/tasks/%d');
+        $pagination = $this->pagination($page, $total, self::LIMIT, [
+            self::ORDER_URL_OPTION_NAME => $orderBy,
+            self::DIRECTION_URL_OPTION_NAME => $orderDirection
+        ]);
 
         return $this->renderAndReturnResponse('tasks.html.twig', [
             'tasks' => $result,
             'pagination' => $pagination,
+            'sortFields' => Task::getFields(),
+            self::ORDER_URL_OPTION_NAME => $orderBy,
+            self::DIRECTION_URL_OPTION_NAME => $orderDirection,
         ]);
-    }
-    
-    /**
-     * Generate rendered pagination
-     *
-     * @param int    $page
-     * @param int    $total
-     * @param int    $limit
-     * @param string $link
-     *
-     * @return string
-     */
-    public function pagination(int $page, int $total, int $limit, string $link): string {
-        $adapter    = new NullAdapter($total);
-        $pagerfanta = new Pagerfanta($adapter);
-        
-        $pagerfanta->setMaxPerPage($limit)->setCurrentPage($page);
-        
-        $view    = new TwitterBootstrap5View();
-        $options = [
-            'css_container_class' => 'pagination justify-content-center',
-        ];
-        
-        return $view->render($pagerfanta, fn($pageNum) => sprintf($link, $pageNum), $options);
     }
     
     private function getOffsetByPage(int $page): int
@@ -65,6 +50,7 @@ class Tasks extends AbstractController
 
     public function create()
     {
+        // TODO
         $request = $this->getRequest();
     }
 }
