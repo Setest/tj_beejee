@@ -85,7 +85,7 @@ abstract class AbstractController implements BaseController{
         return $this->twig->render($name, $opts);
     }
 
-    public function renderAndReturnResponse(string $name, array $opts = [])
+    public function renderAndReturnResponse(string $name, array $opts = [], int $status = 200)
     {
         $pages = [];
         // TODO put in cache
@@ -115,7 +115,7 @@ abstract class AbstractController implements BaseController{
 
         $result = $this->render($name, $opts);
 
-        return $this->createResponse(200, $result);
+        return $this->createResponse($status, $result);
     }
 
     public function createResponse(int $status, $body)

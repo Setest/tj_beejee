@@ -1,0 +1,26 @@
+<div class="col">
+    <form action="/tasks" name="createTask" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">User name</label>
+            <input type="text" name="username" id="username"
+                   required
+                   minlength="2"
+                   class="form-control" placeholder="John Doe">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" name="email" id="email"
+                   required
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                   class="form-control" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" name="content" id="content" rows="3"
+                      required
+                      minlength="1"
+            ></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>

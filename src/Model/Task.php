@@ -58,7 +58,16 @@ class Task extends AbstractActiveRecord implements ActiveRecord
             'updated_at' => time(),
         ], ['id' => $id]);
     }
-
+    
+    public static function insert(string $username, string $email, string $content): bool
+    {
+        return !!Db::$connection->insert(self::getTableName(), [
+            'username' => $username,
+            'email' => $email,
+            'content' => $content,
+            'updated_at' => time(),
+        ]);
+    }
 
     /**
      * @param int $id

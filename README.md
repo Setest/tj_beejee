@@ -33,9 +33,9 @@
 - [X] create task model
 - [X] show tasks list
 - [X] add pagination feature in tasks list
-- [ ] add sort feature in tasks list, should be remembered in url path
-- [ ] add insert data controller, input data validator and form in home template (CRUD with requests in REST style)
-- [ ] add new task
+- [X] add sort feature in tasks list, should be remembered in url path
+- [X] add creating task form, success form and error
+- [X] add insert data controller, input data validator
 - [ ] create user model
 - [ ] add auth page and auth controller
 - [ ] add session handler

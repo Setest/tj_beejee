@@ -1,0 +1,22 @@
+{% extends 'templates/layout.html.twig' %}
+
+{% block title %}OMG{% endblock %}
+
+{% block content %}
+
+    <h1>Uuuups...</h1>
+    <div class="row text-start">
+        <h3>
+            OMG something wrong!
+        </h3>
+
+        {% for key,error in errors %}
+            <div class="alert alert-warning" role="alert">
+                {{ error }}
+            </div>
+        {% endfor %}
+
+        <p><a href="/tasks/page/1" class="link-success">Go back to the tasks page</a></p>
+    </div>
+
+{% endblock %}

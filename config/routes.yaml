@@ -14,7 +14,7 @@ createTask:
   requirements:
     name: '\w+'
 
-TasksList:
+tasksList:
   path:
     /tasks/page/{page}
   controller: App\Controller\Tasks

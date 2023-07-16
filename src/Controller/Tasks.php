@@ -50,7 +50,33 @@ class Tasks extends AbstractController
 
     public function create()
     {
-        // TODO
-        $request = $this->getRequest();
+        $data = $this->getRequest()->getParsedBody();
+        $errors = [];
+        
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Email address is considered valid";
+        }
+        
+        if (!$data['username']) {
+            $errors[] = "User name is no set";
+        }
+
+        if (!$data['content']) {
+            $errors[] = "Content is empty";
+        }
+        
+        if ($errors){
+            return $this->renderAndReturnResponse('tasks_creating_failed.html.twig', [
+                'errors' => $errors
+            ], 400);
+        }
+        
+        if (!Task::insert($data['username'], $data['email'], $data['content'])) {
+            return $this->renderAndReturnResponse('tasks_creating_failed.html.twig', [
+                'errors' => ['Something goes wrong, try again latter']
+            ], 500);
+        }
+        
+        return $this->renderAndReturnResponse('tasks_created_successful.html.twig');
     }
 }
