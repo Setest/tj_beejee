@@ -22,6 +22,8 @@ class App
         private \Symfony\Component\Routing\Router          $router,
         private bool                                       $debug = false,
     ) {
+        // TODO should be controlled by service
+        session_start();
     }
 
     private function isDebug(){
@@ -92,6 +94,7 @@ class App
             $response = $this->responseFactory->createResponse(500, 'Internal server error');
         }
 
+        session_write_close();
         return $response;
     }
 }

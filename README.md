@@ -1,4 +1,8 @@
 ## Description
+
+Rules in routes yaml
+
+
 Необходимо создать приложение-задачник (ToDo list).
 Фреймворки PHP использовать нельзя, библиотеки можно. Сложная архитектура не нужна.
 В приложении нужно с помощью чистого PHP реализовать модель MVC. Решите поставленные задачи минимально необходимым количеством кода.
@@ -36,11 +40,11 @@
 - [X] add sort feature in tasks list, should be remembered in url path
 - [X] add creating task form, success form and error
 - [X] add insert data controller, input data validator
-- [ ] create user model
-- [ ] add auth page and auth controller
-- [ ] add session handler
+- [X] create user model
+- [X] add auth page and auth controller
+- [X] add session handler
+- [X] add login (with logout)
 - [ ] edit task by admin
-- [ ] add login (with logout)
 - [ ] read base config from envs (app_mode)
 - [ ] write tests
 - [ ] fill readme file (make install)

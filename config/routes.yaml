@@ -25,3 +25,28 @@ tasksList:
     title: 'Tasks'
   requirements:
     page: '\d+'
+
+authPage:
+  path: /auth
+  controller: App\Controller\Auth
+  methods: ['GET']
+  defaults:
+    _action: 'handle'
+    title: 'Login'
+    hide: ['if_authorized']
+
+loginUser:
+  path: /auth
+  controller: App\Controller\Auth
+  methods: ['POST']
+  defaults:
+    _action: 'login'
+
+logout:
+  path: /logout
+  controller: App\Controller\Auth
+  methods: ['GET']
+  defaults:
+    _action: 'logout'
+    title: 'Logout'
+    hide: ['if_unauthorized']

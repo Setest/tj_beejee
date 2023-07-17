@@ -31,6 +31,13 @@ abstract class AbstractActiveRecord
         ]);
     }
     
+    public static function findByFieldVal(string $field, $val)
+    {
+        return Db::$connection->get(static::getTableName(), "*", [
+            $field => $val,
+        ]);
+    }
+    
     public static function filterOrderFieldByName(string $orderField = 'id'): string
     {
         $orderField = strtolower($orderField);

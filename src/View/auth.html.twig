@@ -1,0 +1,68 @@
+{% extends 'templates/layout.html.twig' %}
+
+{% block title %}Authorization{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-3">
+            <div class="alert alert-warning visually-hidden" role="alert" id="auth-fail"></div>
+
+            <form action="/auth" name="auth-form" method="post">
+                <div class="mb-3">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" name="login" id="login"
+                      required
+                      minlength="2"
+                      class="form-control" placeholder="John Doe" />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password"
+                         required
+                         minlength="3"
+                         class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-success">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js_additional %}
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        $failEl = document.getElementById('auth-fail');
+
+        document.forms["auth-form"].addEventListener("submit", (e) => {
+          e.preventDefault()
+          $failEl.classList.add('visually-hidden');
+
+          let params = new FormData(e.target);
+
+          fetch('/auth', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+            },
+            body:   params
+          }).then(
+            response => {
+              if (response.status === 200){
+                let parsedUrl = new URL('/', window.location.href);
+                return location.replace(parsedUrl.toString())
+              }
+
+              return response.json();
+            }
+          ).then(
+            response => {
+              $failEl.classList.remove('visually-hidden');
+              $failEl.innerHTML = response.message;
+            }
+          );
+        });
+      });
+
+    </script>
+{% endblock %}

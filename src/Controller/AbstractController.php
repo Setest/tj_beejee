@@ -89,16 +89,31 @@ abstract class AbstractController implements BaseController{
     {
         $pages = [];
         // TODO put in cache
+        $is_authorized = \App\Helper\Auth::isUserLoggedIn();
         $routeInfo = $this->router->match($this->request->getUri()->getPath());
-        foreach ($this->router->getRouteCollection() as $routeName => $col) {
-            if (in_array('GET', $col->getMethods() ) && $col->getDefault('title')){
+        foreach ($this->router->getRouteCollection() as $routeName => $route) {
+            if (in_array('GET', $route->getMethods() ) && $route->getDefault('title')){
+                if ($rules = $route->getDefault('hide')){
+                    foreach ($rules as $rule){
+                        switch ($rule){
+                            case 'if_unauthorized':
+                                if (!$is_authorized) goto skipRoute;
+                                break;
+                            case 'if_authorized':
+                                if ($is_authorized) goto skipRoute;
+                                break;
+                        }
+                    }
+                }
+
                 $pages[] = [
                     'link'   => ($routeInfo['_route'] === $routeName)
                         ? $this->request->getUri()->getPath()
                         : $this->router->generate($routeName),
-                    'title'  => $col->getDefault('title'),
+                    'title'  => $route->getDefault('title'),
                     'active' => ($routeInfo['_route'] === $routeName)
                 ];
+                skipRoute:
             }
         }
         
@@ -117,7 +132,20 @@ abstract class AbstractController implements BaseController{
 
         return $this->createResponse($status, $result);
     }
+    
+    public function returnJsonResponse(array $data = [], int $status = 200)
+    {
+        return $this->createResponse($status, json_encode($data));
+    }
 
+    public function redirectTo(string $routeName, int $status = 303)
+    {
+        $homePage = $this->getRouter()->generate($routeName);
+        
+        return $this->createResponse($status, '')
+                    ->withHeader('Location', $homePage);
+    }
+    
     public function createResponse(int $status, $body)
     {
         $response = $this->responseFactory->createResponse($status);

@@ -5,6 +5,13 @@
 {% block content %}
 
     <h1>Home Page</h1>
-    <p>Hello, this is home page, for view all tasks please click on Task in menu</p>
+
+    <p>
+    {% if user %}
+        Hello, <b>{{ user.username }}</b> we have a lot of tasks today!
+    {% else %}
+        Hello, this is home page, for view all tasks please click on Task in menu
+    {% endif %}
+    </p>
 
 {% endblock %}

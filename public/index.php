@@ -38,7 +38,16 @@ $database = new \Medoo\Medoo([
 
 // I know its stupid and simple way to create connection with DB, dont blame me )
 \App\Helper\Db::getInstance($database);
-$x = \App\Model\Tasks::doneToggle(10);
+
+//$x = \App\Model\Task::doneToggle(10);
+//var_dump($x);
+
+//$database->beginDebug();
+//$z = $database->select('tasks', '*', ['id' => 10]);
+//$x = \App\Model\Task::create('xxx','yyy', "' LIMIT 1```\"");
+//$z = \App\Model\Task::findAll();
+//var_dump($z);
+//var_dump($database->debugLog());
 
 $app = new App($psr17Factory, $symfonyRequest, $router, $debugMode);
 (new HttpFoundationFactory())->createResponse($app->handle($request))->send();
