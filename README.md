@@ -1,10 +1,10 @@
 ## Initialization
-Just run `make install`
-You can also get help by all cmds, type `make help`.
-For creating migration: `make migrate-gen`
-For rollup migration: `make migrate`
-To start all services `make up`
-For any trouble use `make ccs` to clear cache
+- Just run `make install`
+- You can also get help by all cmds, type `make help`.
+- For creating migration: `make migrate-gen`
+- For rollup migration: `make migrate`
+- To start all services `make up`
+- For any trouble use `make ccs` to clear cache
 
 Before you begin edit .env file and put your `NGINX_HOST_HTTP_PORT`
 

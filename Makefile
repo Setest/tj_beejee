@@ -34,7 +34,7 @@ install: pre-install down build up post-install ## Create and start docker hub
 pre-install:
 	@echo --- Pre-install ---
 
-post-install: composer-install composer-dump-env-dev m-init
+post-install: composer-install composer-dump-env-dev migrate
 
 build: ## Build containers
 	${DOCKER_COMPOSE} build
@@ -55,7 +55,7 @@ test: ## Run unit tests
 
 ## ——  Working with migrations  ——————————————————————————————————
 migrate: ## Rollup all migrations (with ugly hack for sqlite db)
-	${DOCKER_EXEC_APP_PHP} "chown www-data: -R db/"
+	${DOCKER_EXEC_APP_PHP} "chown www-data: -R db var"
 	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx migrate"
 c=
 migrate-gen: ## Create migration
