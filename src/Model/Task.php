@@ -49,12 +49,13 @@ class Task extends AbstractActiveRecord implements ActiveRecord
      * @param string $content
      * @return bool
      */
-    public static function update(int $id, string $username, string $email, string $content): bool
+    public static function update(int $id, string $username, string $email, string $content, bool $done): bool
     {
         return !!Db::$connection->update(self::getTableName(), [
             'username' => $username,
             'email' => $email,
             'content' => $content,
+            'done' => $done,
             'updated_at' => time(),
         ], ['id' => $id]);
     }

@@ -89,7 +89,7 @@ abstract class AbstractController implements BaseController{
     {
         $pages = [];
         // TODO put in cache
-        $is_authorized = \App\Helper\Auth::isUserLoggedIn();
+        $is_authorized = \App\Helper\Auth::isUserAuthorized();
         $routeInfo = $this->router->match($this->request->getUri()->getPath());
         foreach ($this->router->getRouteCollection() as $routeName => $route) {
             if (in_array('GET', $route->getMethods() ) && $route->getDefault('title')){

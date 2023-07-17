@@ -1,0 +1,74 @@
+{% extends 'templates/layout.html.twig' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+
+    <h1>Add new task</h1>
+    <div class="row text-start">
+        {% include 'templates/sections/tasks/add_form.html.twig' %}
+    </div>
+
+    <h1>Tasks</h1>
+    <div class="row">
+        <div class="col">
+            {% include 'templates/sections/sort.html.twig' %}
+        </div>
+        <div class="col">
+            {% include 'templates/sections/pagination.html.twig' %}
+        </div>
+    </div>
+
+    {% for key,task in tasks %}
+        {% include 'templates/sections/tasks/edit_form.html.twig' %}
+    {% endfor %}
+
+    {% include 'templates/sections/pagination.html.twig' %}
+
+{% endblock %}
+
+{% block js_additional %}
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+
+        let forms = document.getElementsByClassName('editTask')
+          Array.from(forms).forEach(form => form.addEventListener("submit", (e) => {
+          e.preventDefault()
+          let $failEl = e.target.getElementsByClassName('error-message')[0];
+          $failEl.classList.add('visually-hidden');
+
+          let params = new FormData(e.target);
+
+          fetch(e.target.action, {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(Object.fromEntries(params))
+          }).then(
+            response => {
+              if (response.status !== 200){
+                throw response.json();
+              }
+
+              new Notify({
+                status: 'success',
+                title: 'Saved',
+                text: 'Successfully saved',
+                autoclose: true,
+                autotimeout: 1200,
+              })
+
+            }
+          ).catch(
+            response => {
+              $failEl.classList.remove('visually-hidden');
+              $failEl.innerHTML = response.message;
+            }
+          );
+        }));
+      });
+
+    </script>
+{% endblock %}

@@ -44,7 +44,7 @@ Rules in routes yaml
 - [X] add auth page and auth controller
 - [X] add session handler
 - [X] add login (with logout)
-- [ ] edit task by admin
+- [X] edit task by admin
 - [ ] read base config from envs (app_mode)
 - [ ] write tests
 - [ ] fill readme file (make install)

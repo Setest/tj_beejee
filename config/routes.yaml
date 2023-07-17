@@ -26,6 +26,16 @@ tasksList:
   requirements:
     page: '\d+'
 
+updateTask:
+  path:
+    /tasks/{id}
+  controller: App\Controller\Tasks
+  methods: ['PUT']
+  defaults:
+    _action: 'update'
+  requirements:
+    id: '\d+'
+
 authPage:
   path: /auth
   controller: App\Controller\Auth

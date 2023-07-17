@@ -24,8 +24,10 @@ class Tasks extends AbstractController
             self::ORDER_URL_OPTION_NAME => $orderBy,
             self::DIRECTION_URL_OPTION_NAME => $orderDirection
         ]);
+        
+        $template = (\App\Helper\Auth::isUserAuthorized()) ? 'tasks_editor' : 'tasks';
 
-        return $this->renderAndReturnResponse('tasks.html.twig', [
+        return $this->renderAndReturnResponse($template . '.html.twig', [
             'tasks' => $result,
             'pagination' => $pagination,
             'sortFields' => Task::getFields(),
@@ -78,5 +80,85 @@ class Tasks extends AbstractController
         }
         
         return $this->renderAndReturnResponse('tasks_created_successful.html.twig');
+    }
+    
+    public function update(int $id)
+    {
+        if (!\App\Helper\Auth::isUserAuthorized()){
+            return $this->returnJsonResponse(
+                [
+                    'status'  => false,
+                    'message' => 'You have no permissions',
+                ],
+                500
+            );
+        }
+        
+        $data = $this->getRequest()->getBody()->getContents();
+        $data = json_decode($data,true);
+        
+        if (!$data){
+            return $this->returnJsonResponse(
+                [
+                    'status'  => false,
+                    'message' => 'Data is empty',
+                ],
+                500
+            );
+        }
+
+
+        $errors = [];
+        
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = "Email address is considered valid";
+        }
+        
+        if (!$data['username']) {
+            $errors[] = "User name is no set";
+        }
+        
+        if (!$data['content']) {
+            $errors[] = "Content is empty";
+        }
+        
+        if ($errors) {
+            return $this->returnJsonResponse(
+                [
+                    'status'  => false,
+                    'message' => implode(', ', $errors),
+                ],
+                400
+            );
+        }
+        
+        $task = Task::findById($id);
+        if (!$task){
+            return $this->returnJsonResponse(
+                [
+                    'status'  => false,
+                    'message' => sprintf('Task with id: %d is not exist', $id),
+                ],
+                500
+            );
+        }
+        
+        $data = [...$task, ...$data];
+        if (!Task::update($data['id'], $data['username'], $data['email'], $data['content'], !!$data['done'])) {
+            return $this->returnJsonResponse(
+                [
+                    'status'  => false,
+                    'message' => 'Something goes wrong, try again latter',
+                ],
+                500
+            );
+        }
+        
+        return $this->returnJsonResponse(
+            [
+                'status'  => true,
+            ],
+            200
+        );
     }
 }

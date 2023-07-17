@@ -1,0 +1,36 @@
+<div class="mb-3 pb-3 row border border-primary text-start">
+    <form action="/tasks/{{ task.id }}" name="editTask{{ task.id }}" class="editTask" method="post">
+        <div class="alert alert-warning visually-hidden error-message" role="alert"></div>
+        <div class="mb-3">
+            <label for="username" class="form-label">User name</label>
+            <input type="text" name="username" id="username"
+                   required
+                   minlength="2"
+                   value="{{ task.username }}"
+                   class="form-control" placeholder="John Doe">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" name="email" id="email"
+                   required
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                   value="{{ task.email }}"
+                   class="form-control" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" name="content" id="content" rows="3"
+                      required
+                      minlength="1"
+            >{{ task.content }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="doneTask{{ task.id }}" class="col-sm-2 col-form-label">Done</label>
+            <div class="col-sm-10 form-check form-switch">
+                {% set done = task.done ? 'checked' : '' %}
+                <input class="form-control form-check-input" type="checkbox" role="switch" name="done" {{ done }} id="doneTask{{ task.id }}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+</div>

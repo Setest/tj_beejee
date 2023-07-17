@@ -9,7 +9,7 @@ class Home extends AbstractController {
     {
         
         $user = [];
-        if (Auth::isUserLoggedIn()){
+        if (Auth::isUserAuthorized()){
             $user = Auth::getLoggedUser();
         }
         

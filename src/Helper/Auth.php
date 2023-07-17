@@ -6,7 +6,7 @@ namespace App\Helper;
 
 class Auth
 {
-    public static function isUserLoggedIn(): bool {
+    public static function isUserAuthorized(): bool {
         return !!($_SESSION['user'] ?? false);
     }
     

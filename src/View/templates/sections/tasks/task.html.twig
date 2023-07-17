@@ -16,6 +16,7 @@
 
     <label for="flexSwitchCheckDefault" class="col-sm-2 col-form-label">Done</label>
     <div class="col-sm-10 form-check form-switch">
-        <input class="form-check-input" disabled="disabled" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        {% set done = task.done ? 'checked' : '' %}
+        <input class="form-check-input" disabled="disabled" type="checkbox" role="switch" {{ done }} id="flexSwitchCheckDefault">
     </div>
 </div>
