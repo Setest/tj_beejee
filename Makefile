@@ -55,7 +55,8 @@ test: ## Run unit tests
 
 ## ——  Working with migrations  ——————————————————————————————————
 migrate: ## Rollup all migrations (with ugly hack for sqlite db)
-	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx migrate && chown www-data: -R db/"
+	${DOCKER_EXEC_APP_PHP} "chown www-data: -R db/"
+	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx migrate"
 c=
 migrate-gen: ## Create migration
 	${DOCKER_EXEC_APP_PHP} "${PHP_RUNNER} ./vendor/bin/phinx create $(c)"
