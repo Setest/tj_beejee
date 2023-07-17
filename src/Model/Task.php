@@ -24,6 +24,7 @@ class Task extends AbstractActiveRecord implements ActiveRecord
             'done',
             'created_at',
             'updated_at',
+            'edited_at',
         ];
     }
 
@@ -49,7 +50,7 @@ class Task extends AbstractActiveRecord implements ActiveRecord
      * @param string $content
      * @return bool
      */
-    public static function update(int $id, string $username, string $email, string $content, bool $done): bool
+    public static function update(int $id, string $username, string $email, string $content, bool $done, ?int $editedAt): bool
     {
         return !!Db::$connection->update(self::getTableName(), [
             'username' => $username,
@@ -57,6 +58,7 @@ class Task extends AbstractActiveRecord implements ActiveRecord
             'content' => $content,
             'done' => $done,
             'updated_at' => time(),
+            'edited_at' => $editedAt,
         ], ['id' => $id]);
     }
     

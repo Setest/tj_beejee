@@ -143,8 +143,13 @@ class Tasks extends AbstractController
             );
         }
         
+        $data['edited_at'] = $task['edited_at'] ?? null;
+        if ($this->hasChanges($task, $data)){
+            $data['edited_at'] = time();
+        }
+        
         $data = [...$task, ...$data];
-        if (!Task::update($data['id'], $data['username'], $data['email'], $data['content'], !!$data['done'])) {
+        if (!Task::update($data['id'], $data['username'], $data['email'], $data['content'], !!$data['done'], $data['edited_at'])) {
             return $this->returnJsonResponse(
                 [
                     'status'  => false,
@@ -160,5 +165,17 @@ class Tasks extends AbstractController
             ],
             200
         );
+    }
+    
+    private function hasChanges($oldData, $newData): bool
+    {
+        $ff = ['username', 'email', 'content'];
+        foreach ($ff as $f) {
+            if ($oldData[$f] !== $newData[$f]){
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

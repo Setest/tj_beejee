@@ -19,4 +19,12 @@
         {% set done = task.done ? 'checked' : '' %}
         <input class="form-check-input" disabled="disabled" type="checkbox" role="switch" {{ done }} id="flexSwitchCheckDefault">
     </div>
+    {% if task.edited_at %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Edited by administrator
+            </div>
+        </div>
+    {% endif %}
+
 </div>
